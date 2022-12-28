@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>DataSource1</DataSourceReference>
+      <CommandText>SELECT YEAR(f.OrderDate) AS CalendarYear, c.EnglishProductCategoryName, SUM(f.SalesAmount) AS TotalSales
+FROM FactResellerSales AS f
+INNER JOIN DimProduct AS p ON f.ProductKey = p.ProductKey
+INNER JOIN DimProductSubcategory AS s ON p.ProductSubcategoryKey = s.ProductSubcategoryKey
+INNER JOIN DimProductCategory AS c ON s.ProductCategoryKey = c.ProductCategoryKey
+GROUP BY YEAR(f.OrderDate), c.EnglishProductCategoryName
+ORDER BY YEAR(f.OrderDate), c.EnglishProductCategoryName</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="CalendarYear">
+        <DataField>CalendarYear</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="EnglishProductCategoryName">
+        <DataField>EnglishProductCategoryName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TotalSales">
+        <DataField>TotalSales</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
